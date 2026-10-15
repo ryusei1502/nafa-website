@@ -1,0 +1,251 @@
+<title>NAFA Debate</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 肯定(Aff)と否定(Neg)の対立を、左右2色の分割で全体のモチーフにする */
+:root{
+  --bg:#f6f7fa; --surface:#ffffff; --fg:#141a2b; --muted:#5b6478; --line:#dde1ea;
+  --aff:#1f4fd1; --neg:#d23a2a; --ink:#141a2b; --onink:#f4f6fb; --notice:#fff4d6; --noticefg:#6b4e00;
+  --display:"Barlow Condensed","Zen Kaku Gothic New",system-ui,sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1320; --surface:#171c2c; --fg:#e8ebf3; --muted:#9aa3b8; --line:#2a3146;
+  --aff:#6b93ff; --neg:#ff7a6b; --ink:#070a12; --onink:#e8ebf3; --notice:#3a2f10; --noticefg:#ffd970; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1320; --surface:#171c2c; --fg:#e8ebf3; --muted:#9aa3b8; --line:#2a3146;
+  --aff:#6b93ff; --neg:#ff7a6b; --ink:#070a12; --onink:#e8ebf3; --notice:#3a2f10; --noticefg:#ffd970; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.75}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--aff);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{text-wrap:balance;line-height:1.25;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.draft{background:var(--notice);color:var(--noticefg);font-size:13px;text-align:center}
+.draft .wrap{padding-block:8px}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{display:flex;width:34px;height:34px;border-radius:6px;overflow:hidden}
+.mark i{flex:1}.mark i:first-child{background:var(--aff)}.mark i:last-child{background:var(--neg)}
+.logo b{font-family:var(--display);font-size:26px;letter-spacing:.04em}
+.logo small{display:block;font-size:11px;color:var(--muted);line-height:1.2}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+nav a{text-decoration:none}nav a:hover{color:var(--aff)}
+.menu{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font:inherit;color:var(--fg);cursor:pointer}
+@media (max-width:760px){
+  .menu{display:block}
+  nav{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line)}
+  nav ul{flex-direction:column;gap:0;padding:8px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+  nav li a{display:block;padding:10px 0}
+}
+
+/* Hero: 今季の論題 */
+.hero{background:var(--ink);color:var(--onink);position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;top:0;bottom:0;width:8px}
+.hero::before{left:0;background:var(--aff)}.hero::after{right:0;background:var(--neg)}
+.hero .wrap{padding-block:64px 56px;display:grid;gap:28px}
+.hero .eyebrow{color:#9aa6c4}
+.resolution{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:.01em;max-width:18ch}
+.resolution-ja{font-size:17px;color:#c9d0e2;max-width:44ch}
+.sides{display:flex;flex-wrap:wrap;gap:12px}
+.side{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid #2c3550}
+.side i{width:10px;height:10px;border-radius:50%}
+.side.a i{background:#6b93ff}.side.n i{background:#ff7a6b}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:8px;font-size:15px}
+.btn.primary{background:var(--onink);color:var(--ink)}
+.btn.ghost{border:1px solid #3a4562;color:var(--onink)}
+
+section{padding-block:64px}
+section + section{border-top:1px solid var(--line)}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:28px}
+.head h2{font-size:28px}
+
+/* News */
+.news{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.news li{display:grid;grid-template-columns:110px 96px 1fr;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+.news time{font-family:var(--mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tag{font-size:12px;font-weight:700;text-align:center;padding:2px 8px;border-radius:4px;border:1px solid var(--line)}
+.tag.t{color:var(--aff);border-color:var(--aff)}.tag.r{color:var(--neg);border-color:var(--neg)}
+.news a{text-decoration:none;min-width:0}.news a:hover{text-decoration:underline}
+@media (max-width:600px){.news li{grid-template-columns:auto auto;row-gap:4px}.news a{grid-column:1/-1}}
+
+/* Schedule */
+.table{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:620px;font-size:15px}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.date{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.status{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.status.open{background:color-mix(in srgb,var(--aff) 14%,transparent);color:var(--aff)}
+.status.soon{background:color-mix(in srgb,var(--muted) 16%,transparent);color:var(--muted)}
+.status.done{border:1px solid var(--line);color:var(--muted)}
+
+/* Beginner guide */
+.guide{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.guide p{margin:0 0 14px;max-width:60ch}
+.flow{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.flow-row{display:grid;grid-template-columns:1fr 70px;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px;align-items:center}
+.flow-row:last-child{border-bottom:0}
+.flow-row span:last-child{font-family:var(--mono);text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.flow-row.a{border-left:4px solid var(--aff)}.flow-row.n{border-left:4px solid var(--neg)}
+.flow-cap{font-size:12px;color:var(--muted);padding:10px 16px;background:var(--bg)}
+@media (max-width:760px){.guide{grid-template-columns:1fr}}
+
+/* Members */
+.schools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.schools div{background:var(--surface);padding:16px;font-weight:500}
+.schools small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.box{border:1px solid var(--line);border-radius:10px;padding:24px;background:var(--surface)}
+.box h3{font-size:18px;margin-bottom:8px}
+.box p{margin:0 0 12px;color:var(--muted)}
+.addr{font-family:var(--mono);font-size:15px;user-select:all;color:var(--fg)}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:#9aa6c4;font-size:13px}
+footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+</style>
+
+<div class="draft"><div class="wrap">試作版です。論題・日程・加盟校などの内容はすべて仮のサンプルです。</div></div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="NAFA トップ">
+      <span class="mark" aria-hidden="true"><i></i><i></i></span>
+      <span><b>NAFA</b><small>大学英語ディベート連盟</small></span>
+    </a>
+    <button class="menu" id="menu-btn" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+    <nav id="site-nav">
+      <ul>
+        <li><a href="#news">お知らせ</a></li>
+        <li><a href="#schedule">大会日程</a></li>
+        <li><a href="#guide">はじめての方へ</a></li>
+        <li><a href="#members">加盟校</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">2026 秋季 論題(サンプル)</div>
+      <h1 class="resolution">Resolved: That the Japanese government should introduce a four-day work week.</h1>
+      <p class="resolution-ja">日本政府は週休3日制を導入すべきである。是か非か。</p>
+      <div class="sides">
+        <span class="side a"><i></i>Affirmative 肯定側</span>
+        <span class="side n"><i></i>Negative 否定側</span>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#schedule">大会日程を見る</a>
+        <a class="btn ghost" href="#guide">はじめての方へ</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="news">
+    <div class="wrap">
+      <div class="head"><h2>お知らせ</h2><span class="eyebrow">News</span></div>
+      <ul class="news">
+        <li><time datetime="2026-10-10">2026.10.10</time><span class="tag t">大会</span><a href="#schedule">秋季大会のエントリー受付を開始しました</a></li>
+        <li><time datetime="2026-10-01">2026.10.01</time><span class="tag">論題</span><a href="#top">2026年秋季の論題を発表しました</a></li>
+        <li><time datetime="2026-09-20">2026.09.20</time><span class="tag r">結果</span><a href="#schedule">夏季新人大会の結果を掲載しました</a></li>
+        <li><time datetime="2026-09-05">2026.09.05</time><span class="tag">連盟</span><a href="#contact">ジャッジ講習会の参加者を募集しています</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <div class="wrap">
+      <div class="head"><h2>大会日程</h2><span class="eyebrow">Tournaments 2026</span></div>
+      <div class="table">
+        <table>
+          <thead><tr><th>日程</th><th>大会名</th><th>会場</th><th>状況</th></tr></thead>
+          <tbody>
+            <tr><td class="date">11/14–15</td><td>秋季大会</td><td>〇〇大学</td><td><span class="status open">受付中</span></td></tr>
+            <tr><td class="date">12/12</td><td>新人ジャッジ講習会</td><td>オンライン</td><td><span class="status soon">準備中</span></td></tr>
+            <tr><td class="date">02/20–21</td><td>春季オープン大会</td><td>△△大学</td><td><span class="status soon">準備中</span></td></tr>
+            <tr><td class="date">08/30</td><td>夏季新人大会</td><td>□□大学</td><td><span class="status done">終了・結果あり</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="guide">
+    <div class="wrap guide">
+      <div>
+        <div class="head"><h2>はじめての方へ</h2></div>
+        <p>ディベートは、ひとつの論題について肯定側と否定側に分かれ、英語で議論を戦わせる競技です。どちらの立場になるかは試合ごとに決まるため、自分の意見とは関係なく、両方の立場から考える力が身につきます。</p>
+        <p>NAFAには各大学ESSのディベート部門が加盟しています。大学に入ってから始める人がほとんどなので、英語に自信がなくても大丈夫です。</p>
+        <p>見学や練習試合への参加は、所属大学のESSか連盟までお気軽にご連絡ください。</p>
+      </div>
+      <div class="flow" aria-label="試合の流れの例">
+        <div class="flow-row a"><span>肯定側 立論</span><span>6:00</span></div>
+        <div class="flow-row n"><span>否定側 質疑</span><span>3:00</span></div>
+        <div class="flow-row n"><span>否定側 立論</span><span>6:00</span></div>
+        <div class="flow-row a"><span>肯定側 質疑</span><span>3:00</span></div>
+        <div class="flow-row n"><span>否定側 反駁</span><span>4:00</span></div>
+        <div class="flow-row a"><span>肯定側 反駁</span><span>4:00</span></div>
+        <div class="flow-cap">試合の流れの例(サンプル)。実際の形式と時間に差し替えてください。</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="members">
+    <div class="wrap">
+      <div class="head"><h2>加盟校</h2><span class="eyebrow">Member ESS</span></div>
+      <div class="schools">
+        <div>〇〇大学<small>ESS Debate Section</small></div>
+        <div>△△大学<small>ESS Debate Section</small></div>
+        <div>□□大学<small>ESS Debate Section</small></div>
+        <div>◇◇大学<small>ESS Debate Section</small></div>
+        <div>☆☆大学<small>ESS Debate Section</small></div>
+        <div>◎◎大学<small>ESS Debate Section</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="head"><h2>お問い合わせ</h2></div>
+      <div class="contact">
+        <div class="box">
+          <h3>大会・エントリーについて</h3>
+          <p>大会運営担当までメールでご連絡ください。</p>
+          <div class="addr">tournament@example.com</div>
+        </div>
+        <div class="box">
+          <h3>加盟・取材・その他</h3>
+          <p>連盟事務局が対応します。</p>
+          <div class="addr">info@example.com</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 NAFA</span><span>大学英語ディベート連盟</span></div>
+</footer>
+
+<script>
+const btn=document.getElementById('menu-btn'),nav=document.getElementById('site-nav');
+const mq=matchMedia('(max-width:760px)');
+function sync(){ if(mq.matches){nav.hidden=btn.getAttribute('aria-expanded')!=='true'} else {nav.hidden=false} }
+btn.addEventListener('click',()=>{btn.setAttribute('aria-expanded',btn.getAttribute('aria-expanded')==='true'?'false':'true');sync()});
+nav.addEventListener('click',e=>{if(e.target.closest('a')&&mq.matches){btn.setAttribute('aria-expanded','false');sync()}});
+mq.addEventListener('change',sync);sync();
+</script>
