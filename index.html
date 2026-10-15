@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NAFA Debate</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -19,6 +23,10 @@
   --aff:#6b93ff; --neg:#ff7a6b; --ink:#070a12; --onink:#e8ebf3; --notice:#3a2f10; --noticefg:#ffd970; color-scheme:dark}
 
 *{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.75}
 a{color:inherit}
 a:focus-visible,button:focus-visible{outline:2px solid var(--aff);outline-offset:3px}
@@ -116,7 +124,8 @@ td.date{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:no
 footer{background:var(--ink);color:#9aa6c4;font-size:13px}
 footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </style>
-
+</head>
+<body>
 <div class="draft"><div class="wrap">試作版です。論題・日程・加盟校などの内容はすべて仮のサンプルです。</div></div>
 
 <header>
@@ -249,3 +258,5 @@ btn.addEventListener('click',()=>{btn.setAttribute('aria-expanded',btn.getAttrib
 nav.addEventListener('click',e=>{if(e.target.closest('a')&&mq.matches){btn.setAttribute('aria-expanded','false');sync()}});
 mq.addEventListener('change',sync);sync();
 </script>
+</body>
+</html>
