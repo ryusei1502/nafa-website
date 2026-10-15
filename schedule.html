@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>大会日程｜NAFA 全日本英語討論協会</title>
+<meta name="description" content="NAFA 2026年度の大会・セミナー日程。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="schedule">
+
+<main>
+  <div class="page-hero">
+    <div class="bg"><img src="images/schedule-hero.jpg" alt=""></div>
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">ホーム</a> / 大会日程</div>
+      <span class="en">Schedule 2026</span>
+      <h1>大会日程</h1>
+      <p class="lead">2026年度の大会・イベントの予定です(2026年3月30日現在)。終わった大会は薄く表示しています。</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <p class="note reveal" style="margin-bottom:20px">会場やタイムテーブルなどの詳細は、JDA-MLと<a href="contact.html">LINEオープンチャット</a>でお知らせしています。</p>
+      <div class="filters reveal" role="group" aria-label="絞り込み">
+        <button type="button" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" data-filter="award" aria-pressed="false">褒賞大会</button>
+        <button type="button" data-filter="host" aria-pressed="false">NAFA主催</button>
+        <button type="button" data-filter="g1" aria-pressed="false">1年生大会</button>
+        <button type="button" data-filter="g2" aria-pressed="false">2年生大会</button>
+        <button type="button" data-filter="event" aria-pressed="false">イベント</button>
+      </div>
+      <div class="table reveal d1">
+        <table>
+          <thead><tr><th>日程</th><th>大会・イベント</th><th>会場・形式</th></tr></thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><span class="mk award">褒賞</span> 褒賞大会</span>
+        <span><span class="mk host">NAFA主催</span> NAFA主催大会</span>
+        <span><span class="mk grade">1年生</span> <span class="mk grade">2年生</span> 学年限定</span>
+        <span><span class="mk grade">Open</span> シーズン制限なし</span>
+        <span><span class="mk event">イベント</span> その他イベント</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

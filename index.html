@@ -7,471 +7,116 @@
 <meta name="description" content="NAFA(全日本英語討論協会)は、日本の大学における英語アカデミック・ディベートの質的向上を目指し、1983年に設立された団体です。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-/* Layout: 肯定(Aff)と否定(Neg)の対立を、左右2色の分割で全体のモチーフにする */
-:root{
-  --bg:#f6f7fa; --surface:#ffffff; --fg:#141a2b; --muted:#5b6478; --line:#dde1ea;
-  --aff:#1f4fd1; --neg:#d23a2a; --ink:#141a2b; --onink:#f4f6fb; --inkmuted:#9aa6c4; --inkline:#2c3550;
-  --display:"Barlow Condensed","Zen Kaku Gothic New",system-ui,sans-serif;
-  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0f1320; --surface:#171c2c; --fg:#e8ebf3; --muted:#9aa3b8; --line:#2a3146;
-  --aff:#6b93ff; --neg:#ff7a6b; --ink:#070a12; --onink:#e8ebf3; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0f1320; --surface:#171c2c; --fg:#e8ebf3; --muted:#9aa3b8; --line:#2a3146;
-  --aff:#6b93ff; --neg:#ff7a6b; --ink:#070a12; --onink:#e8ebf3; color-scheme:dark}
-
-*{box-sizing:border-box}
-html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);scroll-padding-top:72px}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.8}
-img{max-width:100%}
-[hidden]{display:none!important}
-a{color:inherit}
-a:focus-visible,button:focus-visible{outline:2px solid var(--aff);outline-offset:3px}
-.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{text-wrap:balance;line-height:1.3;margin:0}
-p{margin:0}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.prose{display:grid;gap:14px;max-width:64ch}
-.note{font-size:13px;color:var(--muted)}
-
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;position:relative}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.mark{display:flex;width:34px;height:34px;border-radius:6px;overflow:hidden;flex:none}
-.mark i{flex:1}.mark i:first-child{background:var(--aff)}.mark i:last-child{background:var(--neg)}
-.logo b{font-family:var(--display);font-size:26px;letter-spacing:.04em;line-height:1}
-.logo small{display:block;font-size:11px;color:var(--muted);line-height:1.3}
-nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
-nav a{text-decoration:none;white-space:nowrap}nav a:hover{color:var(--aff)}
-.menu{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 12px;font:inherit;font-size:14px;color:var(--fg);cursor:pointer}
-@media (max-width:900px){
-  .menu{display:block}
-  nav{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line)}
-  nav ul{flex-direction:column;gap:0;padding:8px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
-  nav li a{display:block;padding:10px 0}
-}
-
-/* Hero: 今期の論題 */
-.hero{background:var(--ink);color:var(--onink);position:relative;overflow:hidden}
-.hero::before,.hero::after{content:"";position:absolute;top:0;bottom:0;width:8px}
-.hero::before{left:0;background:#3d6cf0}.hero::after{right:0;background:#e2503f}
-.hero .wrap{padding-block:64px 56px;display:grid;gap:24px}
-.hero .eyebrow{color:var(--inkmuted)}
-.resolution{font-family:var(--display);font-weight:700;font-size:clamp(32px,5.6vw,60px);line-height:1.05;letter-spacing:.01em;max-width:22ch}
-.resolution-ja{font-size:16px;color:#c9d0e2;max-width:48ch}
-.resolution-ja small{display:block;font-size:12px;color:var(--inkmuted)}
-.sides{display:flex;flex-wrap:wrap;gap:12px}
-.side{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid var(--inkline)}
-.side i{width:10px;height:10px;border-radius:50%}
-.side.a i{background:#6b93ff}.side.n i{background:#ff7a6b}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-block;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:8px;font-size:15px}
-.btn.primary{background:var(--onink);color:var(--ink)}
-.btn.ghost{border:1px solid #3a4562;color:var(--onink)}
-
-section{padding-block:64px}
-section + section{border-top:1px solid var(--line)}
-.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:28px}
-.head h2{font-size:28px}
-
-/* News */
-.news{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.news li{display:grid;grid-template-columns:110px 80px 1fr;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
-.news time{font-family:var(--mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
-.tag{font-size:12px;font-weight:700;text-align:center;padding:2px 8px;border-radius:4px;border:1px solid var(--line)}
-.tag.t{color:var(--aff);border-color:var(--aff)}.tag.r{color:var(--neg);border-color:var(--neg)}
-.news a{text-decoration:none;min-width:0}.news a:hover{text-decoration:underline}
-@media (max-width:600px){.news li{grid-template-columns:auto auto;justify-content:start;row-gap:4px}.news a{grid-column:1/-1}}
-
-/* About */
-.about{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
-.facts{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
-.fact{padding:18px 20px;border-bottom:1px solid var(--line)}
-.fact:nth-child(odd){border-right:1px solid var(--line)}
-.fact:nth-last-child(-n+2){border-bottom:0}
-.fact b{display:block;font-family:var(--display);font-size:36px;line-height:1.1;font-variant-numeric:tabular-nums}
-.fact span{font-size:13px;color:var(--muted)}
-.message{margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
-.message blockquote{margin:12px 0 8px;font-size:15px;color:var(--muted);max-width:64ch}
-@media (max-width:820px){.about{grid-template-columns:1fr;gap:32px}}
-
-/* Schedule */
-.table{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-table{width:100%;border-collapse:collapse;min-width:640px;font-size:15px}
-th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:500}
-tr:last-child td{border-bottom:0}
-td.date{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-td.where{color:var(--muted);font-size:14px}
-tr.past td{color:var(--muted)}
-tr.past td.name{text-decoration:none;opacity:.75}
-.marks{display:inline-flex;gap:6px;margin-left:8px;vertical-align:middle}
-.mk{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;white-space:nowrap}
-.mk.award{background:color-mix(in srgb,var(--neg) 14%,transparent);color:var(--neg)}
-.mk.host{background:color-mix(in srgb,var(--aff) 14%,transparent);color:var(--aff)}
-.mk.grade{border:1px solid var(--line);color:var(--muted)}
-.mk.event{border:1px solid var(--line);color:var(--muted)}
-.mk.next{background:var(--aff);color:var(--surface)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:13px;color:var(--muted);align-items:center}
-.schedule-note{margin-bottom:16px}
-
-/* Tournaments */
-.tgroup + .tgroup{margin-top:36px}
-.tgroup h3{font-size:15px;color:var(--muted);font-weight:500;margin-bottom:14px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.card{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:20px;display:grid;gap:8px;align-content:start}
-.card h4{margin:0;font-family:var(--display);font-size:22px;letter-spacing:.01em;line-height:1.2}
-.card p{font-size:14px;color:var(--muted)}
-.card .marks{margin-left:0}
-
-/* Guide */
-.guide{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.steps{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
-.steps li{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);font-size:14px}
-.steps li:last-child{border-bottom:0}
-.steps .n{font-family:var(--mono);font-size:12px;color:var(--aff);padding-top:3px}
-.steps b{display:block;font-size:15px;margin-bottom:2px}
-.merits{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
-.merit{border-top:3px solid var(--aff);padding-top:10px;font-size:14px}
-.merit:nth-child(even){border-color:var(--neg)}
-.merit b{display:block;font-size:15px}
-.merit span{color:var(--muted)}
-@media (max-width:820px){.guide{grid-template-columns:1fr;gap:36px}}
-@media (max-width:420px){.merits{grid-template-columns:1fr}}
-
-/* Members */
-.regions{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-.region{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:18px 20px}
-.region h3{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:8px;display:flex;justify-content:space-between}
-.region ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-weight:500}
-.region small{color:var(--muted);font-weight:400;font-family:var(--mono);font-size:12px;margin-left:6px}
-
-/* Awards */
-.points{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:20px}
-.points div{background:var(--surface);padding:16px 18px}
-.points b{display:block;font-family:var(--display);font-size:28px;line-height:1.1}
-.points span{font-size:13px;color:var(--muted)}
-
-/* Committee */
-.committee{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0 32px}
-.committee div{padding:12px 0;border-bottom:1px solid var(--line);display:grid;gap:2px}
-.committee dt{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
-.committee dd{margin:0;font-weight:500}
-.committee dd small{color:var(--muted);font-weight:400}
-
-/* Links & contact */
-.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:40px}
-.link{display:block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--surface)}
-.link:hover{border-color:var(--aff)}
-.link b{display:block}
-.link span{font-size:13px;color:var(--muted)}
-.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.box{border:1px solid var(--line);border-radius:10px;padding:22px;background:var(--surface);display:grid;gap:10px;align-content:start}
-.box h3{font-size:16px}
-.addr{font-family:var(--mono);font-size:14px;user-select:all;word-break:break-all}
-@media (max-width:820px){.contact{grid-template-columns:1fr}}
-
-footer{background:var(--ink);color:var(--inkmuted);font-size:13px}
-footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body data-page="home">
 
-<header>
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="NAFA トップへ">
-      <span class="mark" aria-hidden="true"><i></i><i></i></span>
-      <span><b>NAFA</b><small>全日本英語討論協会</small></span>
-    </a>
-    <button class="menu" id="menu-btn" aria-expanded="false" aria-controls="site-nav">メニュー</button>
-    <nav id="site-nav">
-      <ul>
-        <li><a href="#about">NAFAとは</a></li>
-        <li><a href="#schedule">大会日程</a></li>
-        <li><a href="#tournaments">主催大会</a></li>
-        <li><a href="#join">はじめての方へ</a></li>
-        <li><a href="#members">加盟団体</a></li>
-        <li><a href="#awards">NAFA褒賞</a></li>
-        <li><a href="#contact">お問い合わせ</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="top">
+<main>
   <div class="hero">
+    <div class="hero-bg"><img src="images/hero.jpg" alt=""></div>
+    <div class="hero-split" aria-hidden="true"></div>
     <div class="wrap">
       <div class="eyebrow">2026年度 後期推奨論題</div>
-      <h1 class="resolution">The Japanese government should introduce compulsory voting in national elections.</h1>
-      <p class="resolution-ja">日本政府は国政選挙において義務投票制を導入すべきである。<small>日本語は参考訳です</small></p>
+      <h1 data-words>The Japanese government should introduce compulsory voting in national elections.</h1>
+      <p class="ja">日本政府は国政選挙において義務投票制を導入すべきである。<small>日本語は参考訳です</small></p>
       <div class="sides">
         <span class="side a"><i></i>Affirmative 肯定側</span>
         <span class="side n"><i></i>Negative 否定側</span>
       </div>
       <div class="cta">
-        <a class="btn primary" href="#schedule">大会日程を見る</a>
-        <a class="btn ghost" href="#join">はじめての方へ</a>
+        <a class="btn primary" href="schedule.html">大会日程を見る <span class="arr">→</span></a>
+        <a class="btn ghost" href="debate.html">ディベートとは</a>
+      </div>
+    </div>
+    <div class="next" id="next-event">
+      <div class="wrap">
+        <div>
+          <div class="label">NEXT TOURNAMENT</div>
+          <div class="name">&nbsp;</div>
+          <div class="note when" style="color:var(--inkmuted)"></div>
+        </div>
+        <div class="days"></div>
       </div>
     </div>
   </div>
 
-  <section id="news">
+  <div class="marquee" aria-hidden="true"><div class="track"></div></div>
+
+  <section>
+    <div class="wrap split">
+      <div class="reveal">
+        <div class="head"><h2><span class="en">About NAFA</span>大学英語ディベートを、<br>40年以上つないできた連盟です。</h2></div>
+        <div class="prose">
+          <p>NAFA(全日本英語討論協会)は、日本の大学における英語ディベートの質的向上を目指し、1983年に設立されました。アメリカや日本で主流の「アカデミック・ディベート」の普及に力を注ぎ、大会やセミナーの開催、コーチの派遣などを行っています。</p>
+          <p>運営は主に、現役を引退した大学4年生が担っています。</p>
+        </div>
+        <p style="margin-top:24px"><a class="more" href="about.html">NAFAについて詳しく <span class="arr">→</span></a></p>
+      </div>
+      <figure class="photo reveal d1" data-label="PHOTO / 大会の様子"><img src="images/about.jpg" alt="NAFA大会の様子"></figure>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
     <div class="wrap">
-      <div class="head"><h2>お知らせ</h2><span class="eyebrow">News</span></div>
-      <ul class="news">
-        <li><time datetime="2026-09-02">2026.09.02</time><span class="tag">論題</span><a href="#top">2026年度後期論題が決定しました</a></li>
+      <div class="stats reveal">
+        <div class="stat"><b data-count="1983">1983</b><span>設立年</span></div>
+        <div class="stat"><b data-count="14">14</b><span>加盟団体</span></div>
+        <div class="stat"><b data-count="21">21</b><span>2026年度の大会・イベント</span></div>
+        <div class="stat"><b data-count="5">5</b><span>褒賞指定大会</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="head reveal"><h2><span class="en">News</span>お知らせ</h2></div>
+      <ul class="news reveal d1">
+        <li><time datetime="2026-09-02">2026.09.02</time><span class="tag">論題</span><a href="index.html">2026年度後期論題が決定しました</a></li>
         <li><time datetime="2026-03-30">2026.03.30</time><span class="tag">論題</span><a href="https://www.nafadebate.org/about-debate/resolution" target="_blank" rel="noopener">2026年度前期論題が決定しました</a></li>
-        <li><time datetime="2026-03-30">2026.03.30</time><span class="tag t">大会</span><a href="#schedule">2026年度大会日程を公開しました</a></li>
+        <li><time datetime="2026-03-30">2026.03.30</time><span class="tag t">大会</span><a href="schedule.html">2026年度大会日程を公開しました</a></li>
         <li><time datetime="2025-09-08">2025.09.08</time><span class="tag">論題</span><a href="https://www.nafadebate.org/about-debate/resolution" target="_blank" rel="noopener">2025年度後期論題が決定しました</a></li>
       </ul>
     </div>
   </section>
 
-  <section id="about">
+  <section>
     <div class="wrap">
-      <div class="head"><h2>NAFAとは</h2><span class="eyebrow">National Association of Forensics and Argumentation</span></div>
-      <div class="about">
-        <div>
-          <div class="prose">
-            <p>NAFA(全日本英語討論協会)は、日本の大学における英語ディベートの質的向上を目指し、1983年に設立された団体です。アメリカ・日本などで主流となっている「アカデミック・ディベート」と呼ばれるスタイルの普及に力を注いできました。</p>
-            <p>英語アカデミック・ディベート大会の開催、セミナーの開催、コーチの派遣などを行っています。運営は主に、現役を引退した大学4年生が担っています。</p>
-            <p>NAFAの大会は文部科学省をはじめ、さまざまな団体・企業から後援・協賛をいただいています。</p>
-          </div>
-          <div class="message">
-            <div class="eyebrow">会長挨拶</div>
-            <blockquote>In reality, the essence of debate lies in “communication”. … By trying debate even once, you may discover how engaging and profound it can be. We hope to change your perception of debate.</blockquote>
-            <p class="note">2026年度 NAFA会長 高橋 紅里(同志社大学)</p>
-          </div>
-        </div>
-        <div class="facts">
-          <div class="fact"><b>1983</b><span>設立年</span></div>
-          <div class="fact"><b>14</b><span>加盟団体</span></div>
-          <div class="fact"><b>8</b><span>主催大会</span></div>
-          <div class="fact"><b>5</b><span>褒賞指定大会</span></div>
-        </div>
+      <div class="head reveal"><h2><span class="en">Contents</span>NAFAを知る</h2></div>
+      <div class="tiles">
+        <a class="tile reveal" href="debate.html"><span class="en">What is debate</span><h3>ディベートとは</h3><p>肯定側と否定側に分かれて審判を説得する競技。4つのメリットも紹介します。</p><span class="arr">↗</span></a>
+        <a class="tile reveal d1" href="schedule.html"><span class="en">Schedule</span><h3>大会日程</h3><p>2026年度の大会・セミナーの予定。次の大会がひと目でわかります。</p><span class="arr">↗</span></a>
+        <a class="tile reveal d2" href="tournaments.html"><span class="en">Tournaments</span><h3>主催大会</h3><p>JNDT、All Japan、NAFA Tournament など、NAFAが主催する8つの大会。</p><span class="arr">↗</span></a>
+        <a class="tile reveal" href="members.html"><span class="en">Members</span><h3>加盟団体</h3><p>東北・関東・関西の14団体が加盟しています。</p><span class="arr">↗</span></a>
+        <a class="tile reveal d1" href="awards.html"><span class="en">Awards</span><h3>NAFA褒賞</h3><p>褒賞指定大会の成績をポイントにして、1年間の成績を競います。</p><span class="arr">↗</span></a>
+        <a class="tile reveal d2" href="join.html"><span class="en">Join us</span><h3>入会案内</h3><p>新入生の方、団体での加盟をお考えの方はこちら。</p><span class="arr">↗</span></a>
       </div>
     </div>
   </section>
 
-  <section id="schedule">
+  <section style="padding-top:0">
     <div class="wrap">
-      <div class="head"><h2>2026年度 大会日程</h2><span class="eyebrow">2026年3月30日現在</span></div>
-      <p class="note schedule-note">会場やタイムテーブルなどの詳細は、JDA-MLとLINEオープンチャットでお知らせしています。</p>
-      <div class="table">
-        <table>
-          <thead><tr><th>日程</th><th>大会・イベント</th><th>会場・形式</th></tr></thead>
-          <tbody id="schedule-body"></tbody>
-        </table>
-      </div>
-      <div class="legend">
-        <span><span class="mk award">褒賞</span> 褒賞大会</span>
-        <span><span class="mk host">NAFA主催</span> NAFA主催大会</span>
-        <span><span class="mk grade">1年生</span><span class="mk grade">2年生</span> 学年限定</span>
-        <span><span class="mk grade">Open</span> シーズン制限なし</span>
-        <span><span class="mk event">イベント</span> その他イベント</span>
+      <div class="head reveal"><h2><span class="en">Gallery</span>大会の風景</h2></div>
+      <div class="gallery">
+        <figure class="photo reveal" data-label="PHOTO / 試合の様子"><img src="images/gallery-1.jpg" alt="試合の様子"></figure>
+        <figure class="photo reveal d1" data-label="PHOTO / スピーチ"><img src="images/gallery-2.jpg" alt="スピーチをする選手"></figure>
+        <figure class="photo reveal d2" data-label="PHOTO / ジャッジ"><img src="images/gallery-3.jpg" alt="ジャッジの様子"></figure>
+        <figure class="photo reveal d1" data-label="PHOTO / 表彰式"><img src="images/gallery-4.jpg" alt="表彰式"></figure>
+        <figure class="photo reveal d2" data-label="PHOTO / 集合写真"><img src="images/gallery-5.jpg" alt="集合写真"></figure>
       </div>
     </div>
   </section>
 
-  <section id="tournaments">
+  <div class="band">
     <div class="wrap">
-      <div class="head"><h2>主催大会</h2><a class="note" href="https://www.nafadebate.org/tournament/japan-national-debate-tournament" target="_blank" rel="noopener">過去の大会結果 →</a></div>
-      <div class="tgroup">
-        <h3>全国大会</h3>
-        <div class="cards">
-          <article class="card"><h4>KUEL Spring Debate Tournament</h4><p>KUEL(関東学生英語会連盟)の全国大会で、「春の2人制ディベート」の呼び名で親しまれてきました。シーズン最初期の大会として、ディベートのスキル向上と交流を目的としています。</p></article>
-          <article class="card"><h4>Japan National Debate Tournament</h4><span class="marks"><span class="mk award">褒賞</span></span><p>NAFA主催の全国大会で、前期最強チーム決定戦とも言われます。44年の歴史があり、毎年多くの方にご後援いただいています。</p></article>
-          <article class="card"><h4>NAFA Michinoku Tournament</h4><span class="marks"><span class="mk award">褒賞</span></span><p>東北地区でのディベート活動の向上を目的に開催しています。今年で40回目。前期最後の褒賞指定大会として各大学がしのぎを削ります。</p></article>
-          <article class="card"><h4>NAFA Kyushu Tournament</h4><span class="marks"><span class="mk award">褒賞</span></span><p>九州地区で行われる大会です。夏休みに開かれるため、多くの大学が遠征します。前期最初の褒賞指定大会で、今年度で19回目です。</p></article>
-          <article class="card"><h4>All Japan Debate Tournament</h4><span class="marks"><span class="mk award">褒賞</span></span><p>KESSA(関西ESS連盟)と合同で開く褒賞指定大会。JNDTと並ぶ大きな大会として、55年にわたり受け継がれてきました。大会後の観光も醍醐味です。</p></article>
-          <article class="card"><h4>NAFA Tournament</h4><span class="marks"><span class="mk award">褒賞</span></span><p>後期シーズン最後の褒賞大会で、最強チームの決定が大会の意義です。多くの学生にとって引退試合となる、思い入れの深い大会です。</p></article>
-        </div>
+      <div class="reveal">
+        <h2>ディベートを始めてみませんか。</h2>
+        <p>大学から始める人がほとんどです。見学・練習試合への参加も歓迎しています。</p>
       </div>
-      <div class="tgroup">
-        <h3>下級生大会</h3>
-        <div class="cards">
-          <article class="card"><h4>NAFA Education League</h4><span class="marks"><span class="mk grade">2年生</span></span><p>前期最初に開かれる大会で、新2年生と新人ジャッジの技術向上が目的です。毎年3月中旬ごろに開催。今年度から未経験者向けリーグを新設しました。</p></article>
-          <article class="card"><h4>NAFA Sophomore Debate Tournament</h4><span class="marks"><span class="mk grade">2年生</span></span><p>2016年に新設された2年生向けの大会です。2年生がチームの一員として、より一層努力することを大会の意義としています。</p></article>
-        </div>
-      </div>
+      <a class="btn primary reveal d1" href="join.html">入会案内を見る <span class="arr">→</span></a>
     </div>
-  </section>
-
-  <section id="join">
-    <div class="wrap guide">
-      <div>
-        <div class="head"><h2>はじめての方へ</h2></div>
-        <div class="prose">
-          <p>ディベートは、与えられた論題について肯定側と否定側に分かれて議論し、審判を説得する競技です。多くの場合「政府は〜という政策をとるべきである」という論題が使われ、その政策のメリットがデメリットを上回れば肯定側、そうでなければ否定側が勝ちます。</p>
-          <p>NAFAが推奨するアカデミック・ディベートは、アメリカの司法制度をモデルにしたスタイルです。証拠資料の提出が必須で、論題が半年間固定されるため、ひとつのテーマを深く掘り下げられます。現在、日本の大学ESSディベートの主流になっています。</p>
-          <p>英語が苦手でも大丈夫です。練習や大会観戦でほぼ毎日英語に触れられるので、3か月ほどで試合をこなせる英語力がつきます。</p>
-        </div>
-        <div class="merits">
-          <div class="merit"><b>統合的英語力</b><span>読む・書く・聞く・話すをすべて使います</span></div>
-          <div class="merit"><b>論理的思考力</b><span>主張・理由・根拠で考える力がつきます</span></div>
-          <div class="merit"><b>プレゼン力</b><span>結論から話す構成が身につきます</span></div>
-          <div class="merit"><b>人のつながり</b><span>大学や世代を越えた仲間ができます</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="head"><h2>入会のしかた</h2><span class="eyebrow">For freshmen</span></div>
-        <ol class="steps">
-          <li><span class="n">STEP 1</span><div><b>加盟団体があるか確認する</b>進学先の大学にNAFA加盟団体があるか、<a href="#members">加盟団体一覧</a>で確認してください。</div></li>
-          <li><span class="n">STEP 2</span><div><b>加盟団体に連絡する</b>加盟団体がある場合は、その団体かNAFA marketing部門にご連絡ください。NAFAが各団体とおつなぎします。加盟団体がない場合も、個人登録で大会に参加できます。団体の設立や新歓の支援もしています。</div></li>
-          <li><span class="n">STEP 3</span><div><b>大会に向けて準備する</b>NAFA Libraryでさまざまなレジュメを入手できます。ピースコープ制度を使えば、NAFAから指導者を派遣することもできます。</div></li>
-        </ol>
-        <p class="note" style="margin-top:14px">団体での加盟は、団体名・人数・責任者の連絡先をご用意のうえご連絡ください。団体年会費は規模によって異なります。NAFA主催大会に出場する場合は、構成員会費として年間一律2,000円がかかります。</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="members">
-    <div class="wrap">
-      <div class="head"><h2>加盟団体</h2><span class="eyebrow">Member organizations</span></div>
-      <div class="regions">
-        <div class="region"><h3>東北</h3><ul><li>東北大学</li></ul></div>
-        <div class="region"><h3>関東</h3><ul>
-          <li>青山学院大学<small>AGU</small></li>
-          <li>慶應義塾大学英語會<small>KESS</small></li>
-          <li>法政大学<small>HEDS</small></li>
-          <li>武蔵大学<small>MESS</small></li>
-          <li>立教大学<small>SPU</small></li>
-          <li>早稲田大学英語部<small>WESA</small></li>
-          <li>早稲田大学ESS<small>WESS</small></li>
-        </ul></div>
-        <div class="region"><h3>関西</h3><ul>
-          <li>大阪大学</li>
-          <li>大阪公立大学<small>OMU</small></li>
-          <li>関西学院大学<small>KGU</small></li>
-          <li>同志社大学<small>DUESS</small></li>
-          <li>龍谷大学<small>RU</small></li>
-          <li>関西地区学生英語会連盟<small>K.I.E.F.</small></li>
-        </ul></div>
-      </div>
-      <p class="note" style="margin-top:16px">加盟の条件は「全日本英語討論協会規約(細則)第一章」をご覧ください。加盟をご検討の団体は<a href="#contact">お問い合わせ</a>からご連絡ください。</p>
-    </div>
-  </section>
-
-  <section id="awards">
-    <div class="wrap">
-      <div class="head"><h2>NAFA褒賞</h2><a class="note" href="https://www.nafadebate.org/nafa-bao-zhang/hosyo" target="_blank" rel="noopener">過去の褒賞結果 →</a></div>
-      <div class="prose">
-        <p>褒賞指定大会での成績をポイントにして、1年間の成績を競います。大会ごとに、スクワッド内でいちばん得点の高かったチームの得点を、その大会でのスクワッドの得点とします。毎年、多田賞・年間褒賞・敢闘賞を表彰しています。</p>
-      </div>
-      <div class="points">
-        <div><b>1 pt</b><span>出場ポイント(1ラウンドごと)</span></div>
-        <div><b>1 pt</b><span>勝利ポイント(1勝ごと)</span></div>
-        <div><b>3 pt</b><span>Best 8 特別ポイント</span></div>
-        <div><b>2 pt</b><span>Oct回避(予選上位4チーム)</span></div>
-      </div>
-      <p class="note" style="margin-top:14px">Jointのみで出場した場合、獲得ポイントは半分になります。ディストーション(不当なエビデンスの使用)があった場合は、NAFA大会規約 第五章に基づいて減点します。</p>
-    </div>
-  </section>
-
-  <section id="committee">
-    <div class="wrap">
-      <div class="head"><h2>運営委員</h2><span class="eyebrow">Steering committee 2026</span></div>
-      <dl class="committee">
-        <div><dt>President</dt><dd>高橋 紅里 <small>同志社大学</small></dd></div>
-        <div><dt>Vice President / Treasurer</dt><dd>下田 凌也 <small>慶應義塾大学</small></dd></div>
-        <div><dt>Quality of Regulation</dt><dd>中谷 隼之介 <small>慶應義塾大学</small></dd></div>
-        <div><dt>Quality of Resolution</dt><dd>乾 源史 <small>関西学院大学</small></dd></div>
-        <div><dt>Alumni Manager</dt><dd>園田 稜太朗 <small>関西学院大学</small></dd></div>
-        <div><dt>Tournament Manager</dt><dd>瀬尾 拓真 <small>早稲田大学</small><br>菊田 和奏 <small>関西学院大学</small></dd></div>
-        <div><dt>IT Manager</dt><dd>米田 早希 <small>法政大学</small></dd></div>
-        <div><dt>Squad Support</dt><dd>辻 豪 <small>慶應義塾大学</small></dd></div>
-        <div><dt>Marketing Project Manager</dt><dd>高橋 紅里 <small>同志社大学</small></dd></div>
-        <div><dt>Sponsor Manager</dt><dd>佐藤 勇吾 <small>法政大学</small></dd></div>
-        <div><dt>Planning</dt><dd>小倉 大輝 <small>慶應義塾大学</small></dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="head"><h2>公式アカウント・お問い合わせ</h2></div>
-      <div class="links">
-        <a class="link" href="https://twitter.com/nafadebate" target="_blank" rel="noopener"><b>X(Twitter)</b><span>大会結果をお知らせしています</span></a>
-        <a class="link" href="https://www.instagram.com/nafa_debate_2025" target="_blank" rel="noopener"><b>Instagram</b><span>NAFAや加盟団体の情報</span></a>
-        <a class="link" href="https://line.me/ti/g2/GJQB6GE0FuQJcdaCNabSqw" target="_blank" rel="noopener"><b>LINE オープンチャット</b><span>大会情報の詳細</span></a>
-        <a class="link" href="https://sites.google.com/nafadebate.org/library/" target="_blank" rel="noopener"><b>NAFA Library</b><span>音源・レジュメ・philosophy・瓦版</span></a>
-      </div>
-      <div class="contact">
-        <div class="box">
-          <h3>見学・新規加盟</h3>
-          <p class="note">大会を見学したい方、NAFAに新しく加盟したい方</p>
-          <div class="addr">nafadebate2026@gmail.com</div>
-        </div>
-        <div class="box">
-          <h3>後援・協賛</h3>
-          <p class="note">後援・協賛をご検討の団体・企業の方</p>
-          <div class="addr">nafa2020sponsor@gmail.com</div>
-        </div>
-        <div class="box">
-          <h3>その他</h3>
-          <p class="note">NAFAの運営・大会に関するお問い合わせ</p>
-          <div class="addr">info@nafadebate.org</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
 
-<footer>
-  <div class="wrap"><span>© 2026 National Association of Forensics and Argumentation</span><span>全日本英語討論協会</span></div>
-</footer>
-
-<script>
-// 2026年度大会日程(旧サイト 2026年3月30日現在の情報)
-// start/end: 月-日。1〜2月は翌年扱い。tags: award=褒賞 host=NAFA主催 g1=1年生 g2=2年生 open=Open event=イベント
-const SCHEDULE = [
-  ["3/1","03-01","03-01","NAFA Spring Seminar","",["event"]],
-  ["3/7–8","03-07","03-08","KIDL Camp","",["event"]],
-  ["3/14–15","03-14","03-15","NAFA 教育リーグ","",["g2","host"]],
-  ["3/21–22","03-21","03-22","KUEL Spring Debate Tournament","",["host"]],
-  ["4/18–19","04-18","04-19","Jr.KIDL × AYAME","",["g2"]],
-  ["4/25–26","04-25","04-26","The 40th NAFA Michinoku Tournament","関東・対面予定",["award","host"]],
-  ["5/9–10","05-09","05-10","春KIDL","",[]],
-  ["5/30–31","05-30","05-31","SEED","",["g2"]],
-  ["6/13–14, 20","06-13","06-20","The 44th Japan National Debate Tournament","予選オンライン/本戦 関西・対面予定",["award","host"]],
-  ["8/16","08-16","08-16","NAFA Summer Seminar","",["event"]],
-  ["9/5–6","09-05","09-06","NIF","",["g1"]],
-  ["9/12–13","09-12","09-13","The 19th NAFA Kyushu Tournament","関東・対面予定",["award","host"]],
-  ["9/19–20","09-19","09-20","立青杯","",["g1"]],
-  ["9/26–27","09-26","09-27","NSDT","",["g2","host"]],
-  ["10/10–11","10-10","10-11","FEED / FLDT","",["g1","host"]],
-  ["10/17–18, 24","10-17","10-24","The 55th All Japan Debate Tournament","予選オンライン/本戦 関西・対面予定",["award","host"]],
-  ["10/31–11/1","10-31","11-01","FFDT / KESSAT for freshman","",["g1"]],
-  ["11/7–8","11-07","11-08","KID","",["g2"]],
-  ["11/14–15, 21","11-14","11-21","The 45th NAFA Tournament","予選オンライン/本戦 関東・対面予定",["award","host"]],
-  ["11/28–29","11-28","11-29","KAEDE × NIDT","",["open"]],
-  ["12/5–6, 12","12-05","12-12","MFDT","予選オンライン/本戦 関東・対面予定",["g1","host"]],
-];
-const LABEL = {award:["award","褒賞"],host:["host","NAFA主催"],g1:["grade","1年生"],g2:["grade","2年生"],open:["grade","Open"],event:["event","イベント"]};
-const toDate = md => { const [m,d] = md.split("-").map(Number); return new Date(m <= 2 ? 2027 : 2026, m-1, d, 23, 59); };
-const now = new Date();
-let nextFound = false;
-const body = document.getElementById("schedule-body");
-for (const [label,start,end,name,where,tags] of SCHEDULE) {
-  const tr = document.createElement("tr");
-  const past = toDate(end) < now;
-  if (past) tr.className = "past";
-  const marks = tags.map(t => `<span class="mk ${LABEL[t][0]}">${LABEL[t][1]}</span>`);
-  if (!past && !nextFound) { marks.unshift('<span class="mk next">次の予定</span>'); nextFound = true; }
-  tr.innerHTML = `<td class="date">${label}</td><td class="name">${name}<span class="marks">${marks.join("")}</span></td><td class="where">${where}</td>`;
-  body.appendChild(tr);
-}
-
-const btn = document.getElementById("menu-btn"), nav = document.getElementById("site-nav");
-const mq = matchMedia("(max-width:900px)");
-function sync(){ nav.hidden = mq.matches && btn.getAttribute("aria-expanded") !== "true"; }
-btn.addEventListener("click", () => { btn.setAttribute("aria-expanded", btn.getAttribute("aria-expanded") === "true" ? "false" : "true"); sync(); });
-nav.addEventListener("click", e => { if (e.target.closest("a") && mq.matches) { btn.setAttribute("aria-expanded","false"); sync(); } });
-mq.addEventListener("change", sync); sync();
-</script>
+<script src="assets/main.js"></script>
 </body>
 </html>
